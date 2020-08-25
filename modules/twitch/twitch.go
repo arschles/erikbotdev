@@ -11,6 +11,7 @@ import (
 	"github.com/erikstmartin/erikbotdev/http"
 	"github.com/gempir/go-twitch-irc/v2"
 	"github.com/nicklaw5/helix"
+	"github.com/xeonx/timeago"
 )
 
 type Config struct {
@@ -92,13 +93,12 @@ func uptimeAction(a bot.Action, cmd bot.Params) error {
 	}
 
 	startedAt := streams[0].StartedAt.Truncate(time.Minute)
-	uptime := time.Now().Truncate(time.Minute).Sub(startedAt)
+	uptime := timeago.NoMax(timeago.English).Format(startedAt)
 	client.Say(
 		channel,
 		fmt.Sprintf(
-			"I've been streaming for %d hours, %d minutes",
-			int(uptime.Hours()),
-			int(uptime.Minutes()),
+			"I started streaming %s",
+			uptime,
 		),
 	)
 	return nil
