@@ -16,6 +16,7 @@ var builtinCommands map[string]CommandFunc = map[string]CommandFunc{
 	"sounds":   soundListCmd,
 	"so":       shoutoutCmd,
 	"counters": listCountersCmd,
+	// "rickroll": rickrollCommand,
 }
 
 func TwitchSay(cmd Params, msg string) error {
@@ -120,3 +121,8 @@ func shoutoutCmd(cmd Params) error {
 
 	return fmt.Errorf("username is required")
 }
+
+// func rickrollCommand(cmd Params) error {
+// 	return http.BroadcastMessage("http.RickRoll")
+// 	//return TwitchSay(cmd, "http.RickRoll")
+// }

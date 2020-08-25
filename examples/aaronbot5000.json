@@ -50,6 +50,24 @@
         }
       ]
     },
+    "dangerously": {
+      "enabled": true,
+      "description": "Prints the uptime of streamer's system",
+      "actions": [
+        {
+          "name": "twitch::Dangerously"
+        }
+      ]
+    },
+    "rickroll": {
+      "enabled": true,
+      "description": "Prints the uptime of streamer's system",
+      "actions": [
+        {
+          "name": "twitch::Rickroll;"
+        }
+      ]
+    },
     "project": {
       "enabled": true,
       "actions": [
