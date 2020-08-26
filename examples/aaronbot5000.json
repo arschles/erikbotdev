@@ -19,7 +19,7 @@
       "clientID": "$TWITCH_CLIENT_ID",
       "clientSecret": "$TWITCH_CLIENT_SECRET",
       "oauthToken": "$TWITCH_OAUTH_TOKEN",
-      "channels": ["erikdotdev", "arschles", "beginbot"]
+      "channels": ["arschles"]
     },
     "hue": {
       "bridge": "",
@@ -64,7 +64,10 @@
       "description": "Prints the uptime of streamer's system",
       "actions": [
         {
-          "name": "twitch::Rickroll;"
+          "name": "bot::ShowImage",
+          "args": {
+            "imageURL": "https://i.ytimg.com/vi/-Cv68B-F5B0/maxresdefault.jpg"
+          }
         }
       ]
     },
@@ -74,7 +77,7 @@
         {
           "name": "twitch::Say",
           "args": {
-            "message": "Hacking on a Twitch bot, hat tip to erikdotdev for the code"
+            "message": "Deploying apps to Kubernetes"
           }
         }
       ]

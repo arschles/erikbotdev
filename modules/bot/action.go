@@ -17,6 +17,7 @@ func init() {
 			"Sleep":     sleepAction,
 			"PlaySound": playSoundAction,
 			"ShellExec": shellExecAction,
+			"ShowImage": sendImageAction,
 		},
 	})
 }
@@ -40,6 +41,24 @@ func sleepAction(a bot.Action, cmd bot.Params) error {
 
 type PlaySoundMessage struct {
 	Sound string `json:"sound"`
+}
+
+type ShowImageMessage struct {
+	SourceURL string `json:"src"`
+}
+
+func sendImageAction(a bot.Action, cmd bot.Params) error {
+	var s string
+	var ok bool
+	if s, ok = a.Args["imageURL"]; !ok {
+		return fmt.Errorf("Argument 'imageURL' is required.")
+	}
+	// TODO: Check media directory to ensure image exists
+	// Also ensure path traversal is accounted for
+	http.BroadcastMessage(&ShowImageMessage{
+		SourceURL: s,
+	})
+	return nil
 }
 
 func playSoundAction(a bot.Action, cmd bot.Params) error {

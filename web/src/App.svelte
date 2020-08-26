@@ -1,9 +1,11 @@
 <script>
 	import Alert from "./components/Alert.svelte";
-	import Chat from "./components/Chat.svelte";
+    import Chat from "./components/Chat.svelte";
+    import SplashImg from './components/SplashImg.svelte';
 
     let alert;
-	let messages = [];
+    let messages = [];
+    let imgSrc;
 
 	function appendChat(msg) {
         // TODO: minimize max size of this array
@@ -39,6 +41,9 @@
             appendChat(msg.message);
         } else if(msg.type == 'http.RaidMessage') {
             alert = msg.message.message;
+        } else if(msg.type == "bot.ShowImageMessage") {
+            console.log("Got rickroll message")
+            imgSrc = "https://i.ytimg.com/vi/-Cv68B-F5B0/maxresdefault.jpg"
         }
     }
 
@@ -73,6 +78,7 @@
 </script>
 <main>
     <Alert message={alert} />
+    <SplashImg src={imgSrc} />
 	<Chat {messages} />
 </main>
 

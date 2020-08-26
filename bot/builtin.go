@@ -121,8 +121,3 @@ func shoutoutCmd(cmd Params) error {
 
 	return fmt.Errorf("username is required")
 }
-
-// func rickrollCommand(cmd Params) error {
-// 	return http.BroadcastMessage("http.RickRoll")
-// 	//return TwitchSay(cmd, "http.RickRoll")
-// }

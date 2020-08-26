@@ -1,6 +1,7 @@
 package http
 
 import (
+	"log"
 	"net/http"
 	"path/filepath"
 
@@ -27,6 +28,7 @@ func Start(addr string, webPath string) error {
 }
 
 func BroadcastMessage(msg Message) error {
+	log.Printf("Broadcasting message %+v", msg)
 	return hub.BroadcastMessage(msg)
 }
 
