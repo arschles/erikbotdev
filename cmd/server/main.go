@@ -10,16 +10,6 @@ import (
 	_ "github.com/erikstmartin/erikbotdev/modules/bot"
 )
 
-var configFileName string
-
-func init() {
-	configFileName = os.Getenv("ERIKBOTDEV_CONFIG_FILE_NAME")
-	if configFileName == "" {
-		configFileName = "config.json"
-	}
-	log.Printf("Using config %s", configFileName)
-}
-
 func main() {
 	file, err := os.Open(findConfigFile())
 	if err != nil {
@@ -49,19 +39,14 @@ func main() {
 }
 
 func findConfigFile() string {
-	home, err := os.UserHomeDir()
-	if err == nil {
-		path := filepath.Join(home, configFileName)
-		if _, err := os.Stat(path); err == nil {
-			return path
+	configFileName := os.Getenv("ERIKBOTDEV_CONFIG_FILE_NAME")
+	if configFileName == "" {
+		home, err := os.UserHomeDir()
+		if err != nil {
+			log.Fatalf("Couldn't find home directory")
 		}
+		return filepath.Join(home, "config.json")
 	}
-
-	// Check relative to binary
-	path, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-	if _, err := os.Stat(filepath.Join(path, configFileName)); err == nil {
-		return filepath.Join(path, configFileName)
-	}
-
-	return filepath.Join(".", configFileName)
+	log.Printf("Using config %s", configFileName)
+	return configFileName
 }
