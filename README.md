@@ -29,6 +29,8 @@ Any sound you reference in the config file ([sample](./erikbotdev.json)) needs t
 
 # ErikBotServer
 
+Hosted Twitch bot server. Accessible at http://51.105.203.101 (no HTTPS right now)
+
 To install with Helm:
 
 ```shell
