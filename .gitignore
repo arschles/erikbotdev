@@ -1,6 +1,6 @@
 .envrc
-erikbotdev
-erikbotserver
+/erikbotdev
+/erikbotserver
 media/
 bot.db
 erikbotdev.json

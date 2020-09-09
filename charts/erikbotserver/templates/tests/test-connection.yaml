@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "erikbotserver.fullname" . }}-test-connection"
+  labels:
+    {{- include "erikbotserver.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "erikbotserver.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

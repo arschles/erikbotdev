@@ -1,8 +1,8 @@
 {
   "enabledModules": ["bot", "twitch"],
-  "databasePath": "./bot.db",
+  "databasePath": "/mnt/erikbotserver/bot.db",
   "webPath": "./web",
-  "mediaPath": "./media",
+  "mediaPath": "/mnt/erikbotserver/media",
   "moduleConfig":{
     "keylight": {
       "lights": [
