@@ -14,6 +14,11 @@ func Start(addr string, webPath string) error {
 	hub = newHub()
 	go hub.run()
 
+	// Kubernetes readiness and liveness probes
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(200)
+	})
+
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(hub, w, r)
 	})

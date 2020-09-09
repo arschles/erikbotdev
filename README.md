@@ -26,3 +26,30 @@ If you do not have the OBS websocket plugin running, you have two options for fo
 ## Sounds
 
 Any sound you reference in the config file ([sample](./erikbotdev.json)) needs to be a WAV file in the media directory.
+
+# ErikBotServer
+
+To install with Helm:
+
+```shell
+helm install \
+    erikbotserver \
+    ./charts/erikbotserver \
+    -n erikbotserver \
+    --create-namespace \
+    --set server.clientID=${TWITCH_CLIENT_ID} \
+    --set server.clientSecret=${TWITCH_CLIENT_SECRET} \
+    --set server.oauthToken=${TWITCH_OAUTH_TOKEN}
+```
+
+Update:
+
+```shell
+helm upgrade erikbotserver ./charts/erikbotserver -n erikbotserver
+```
+
+Delete:
+
+```shell
+helm uninstall -n erikbotserver erikbotserver
+```

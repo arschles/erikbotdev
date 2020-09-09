@@ -12,4 +12,8 @@ dockerbuildserver:
 
 .PHONY: dockerrunserver
 dockerrunserver:
-	docker run -e PORT=9090 -p 9090:9090 -e ERIKBOTDEV_CONFIG_FILE_NAME=/configs/aaronbot5000.json --rm arschles/erikbotserver
+	docker run -e PORT=9090 -p 9090:9090 -e ERIKBOTDEV_CONFIG_FILE_NAME=./examples/aaronbot5000.json --rm arschles/erikbotserver
+
+.PHONY: dockerpushserver
+dockerpushserver: dockerbuildserver
+	docker push arschles/erikbotserver
