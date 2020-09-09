@@ -45,7 +45,13 @@ helm install \
 Update:
 
 ```shell
-helm upgrade erikbotserver ./charts/erikbotserver -n erikbotserver
+helm upgrade \
+    erikbotserver \
+    ./charts/erikbotserver \
+    -n erikbotserver \
+    --set server.clientID=${TWITCH_CLIENT_ID} \
+    --set server.clientSecret=${TWITCH_CLIENT_SECRET} \
+    --set server.oauthToken=${TWITCH_OAUTH_TOKEN}
 ```
 
 Delete:
