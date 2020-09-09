@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 
+	"github.com/erikstmartin/erikbotdev/bot"
 	_ "github.com/erikstmartin/erikbotdev/modules/bot"
 )
 
@@ -19,21 +21,29 @@ func init() {
 }
 
 func main() {
-	// file, err := os.Open(findConfigFile())
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// }
-	// err = bot.LoadConfig(file)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// }
+	file, err := os.Open(findConfigFile())
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	err = bot.LoadConfig(file)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-	// if err = bot.Init(); err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// }
+	if err = bot.Init(); err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	err = bot.InitDatabase(bot.DatabasePath(), 0600)
+	if err != nil {
+		if err.Error() == "timeout" {
+			log.Fatal("Timeout opening database. Check to ensure another process does not have the database file open")
+		}
+		log.Fatal("Failed to initialize database: ", err)
+	}
 
 	execute()
 }

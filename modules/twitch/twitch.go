@@ -3,6 +3,7 @@ package twitch
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 	"time"
@@ -39,6 +40,7 @@ func (c *Config) GetClientSecret() string {
 
 func (c *Config) GetOauthToken() string {
 	if strings.HasPrefix(c.OauthToken, "$") {
+		log.Printf("trying to get env var %s for twitch oauth token", strings.TrimPrefix(c.OauthToken, "$"))
 		return os.Getenv(strings.TrimPrefix(c.OauthToken, "$"))
 	}
 	return c.OauthToken

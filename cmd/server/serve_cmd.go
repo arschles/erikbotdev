@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/erikstmartin/erikbotdev/http"
+	"github.com/erikstmartin/erikbotdev/modules/twitch"
 	"github.com/spf13/cobra"
 )
 
@@ -28,10 +29,20 @@ var serveCmd = &cobra.Command{
 		if port == "" {
 			port = "8080"
 		}
-		// TODO: register routes
-		portStr := fmt.Sprintf(":%s", port)
-		log.Printf("Serving on port %s", portStr)
-		go http.Start(portStr, "./web")
+
+		go func() {
+			if err := twitch.Run(); err != nil {
+				log.Fatalf("Error running twitch chat listener (%s)", err)
+			}
+		}()
+
+		go func() {
+			portStr := fmt.Sprintf(":%s", port)
+			log.Printf("Serving on port %s", portStr)
+			http.Start(portStr, "./web")
+		}()
+
+		select {}
 
 		// err := bot.InitDatabase(bot.DatabasePath(), 0600)
 		// if err != nil {
@@ -61,8 +72,5 @@ var serveCmd = &cobra.Command{
 		// 	Command: "startup",
 		// })
 
-		// if err := twitch.Run(); err != nil {
-		// 	panic(err)
-		// }
 	},
 }
