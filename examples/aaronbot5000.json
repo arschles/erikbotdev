@@ -1,6 +1,6 @@
 {
   "enabledModules": ["bot", "twitch"],
-  "databasePath": "/mnt/erikbotserver/bot.db",
+  "databasePath": "./bot.db",
   "webPath": "./web",
   "mediaPath": "/mnt/erikbotserver/media",
   "moduleConfig":{

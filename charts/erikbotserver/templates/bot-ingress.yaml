@@ -1,0 +1,27 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+    name: "aaronbot5000"
+    namespace: {{ .Release.namespace }}
+    annotations:
+        # use the shared ingress-nginx
+        kubernetes.io/ingress.class: "nginx"
+        kubernetes.io/tls-acme: "true"
+        {{ if .Values.server.letsEncryptProd -}}
+        cert-manager.io/issuer: "letsencrypt-prod"
+        {{ else -}}
+        cert-manager.io/issuer: "letsencrypt-staging"
+        {{- end }}
+spec:
+  tls:
+    - hosts:
+        - aaronbot5000.dev
+      secretName: aaronbot5000-tls
+  rules: 
+  - host: aaronbot5000.dev
+    http:
+      paths:
+      - path: /abc
+        backend:
+          serviceName: {{ include "erikbotserver.fullname" . }}
+          servicePort: 80

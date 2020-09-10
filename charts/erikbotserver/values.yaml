@@ -10,6 +10,7 @@ server:
   clientID: ""
   clientSecret: ""
   oauthToken: ""
+  letsEncryptProd: false
 
 image:
   repository: arschles/erikbotserver

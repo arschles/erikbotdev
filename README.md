@@ -1,5 +1,9 @@
 # ErikBotDev
 
+**For all things k8s: https://k8syaml.com/**
+
+>h/t rockerBoo
+
 TODO: Add description and usage here later.
 
 Modular support. Pick which modules you like.
@@ -60,4 +64,23 @@ Delete:
 
 ```shell
 helm uninstall -n erikbotserver erikbotserver
+```
+
+# Ingress Controller
+
+Using nginx-ingress and cert-manager
+
+https://cert-manager.io/docs/tutorials/acme/ingress/
+
+Use nginx-ingress and cert-manager
+
+Installing cert-manager:
+
+```shell
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --version v1.0.1 \
+  --set installCRDs=true \
+  --create-namespace
 ```
