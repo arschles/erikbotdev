@@ -38,11 +38,20 @@ spec:
             - name: PORT
               value: {{ .Values.server.port | quote }}
             - name: TWITCH_CLIENT_ID
-              value: {{ .Values.server.clientID | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: twitchsecrets
+                  key: clientid
             - name: TWITCH_CLIENT_SECRET
-              value: {{ .Values.server.clientSecret | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: twitchsecrets
+                  key: clientsecret
             - name: TWITCH_OAUTH_TOKEN
-              value: {{ .Values.server.oauthToken | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: twitchsecrets
+                  key: oauthtoken
 
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:

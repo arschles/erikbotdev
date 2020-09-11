@@ -1,5 +1,7 @@
 # ErikBotDev
 
+- where does the bot "5000" naming convention come from - zanuss
+
 **For all things k8s: https://k8syaml.com/**
 
 >h/t rockerBoo
@@ -54,10 +56,7 @@ Update:
 helm upgrade \
     erikbotserver \
     ./charts/erikbotserver \
-    -n erikbotserver \
-    --set server.clientID=${TWITCH_CLIENT_ID} \
-    --set server.clientSecret=${TWITCH_CLIENT_SECRET} \
-    --set server.oauthToken=${TWITCH_OAUTH_TOKEN}
+    -n erikbotserver
 ```
 
 Delete:
