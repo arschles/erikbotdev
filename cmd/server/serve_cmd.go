@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/erikstmartin/erikbotdev/bot"
 	"github.com/erikstmartin/erikbotdev/http"
 	"github.com/erikstmartin/erikbotdev/modules/twitch"
 	"github.com/spf13/cobra"
@@ -25,6 +26,7 @@ var serveCmd = &cobra.Command{
 	Short: "run the erikbotdev server",
 	Long:  `Use this command to start up the chatbot server.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		bot.Status.Streaming = true
 		port := os.Getenv("PORT")
 		if port == "" {
 			port = "8080"

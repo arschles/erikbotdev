@@ -34,7 +34,6 @@ WORKDIR $HOME/erikbotserver
 
 COPY --from=builder /go/src/github.com/erikstmartin/erikbotdev .
 
-# Add tini, see https://github.com/gomods/athens/issues/1155 for details.
 EXPOSE 3000
 
 CMD ["./erikbotserver", "serve"]

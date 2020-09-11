@@ -2,6 +2,10 @@
 run:
 	go build -o erikbotdev . && ./erikbotdev run -s
 
+.PHONY: buildserver
+buildserver:
+	go build -o  erikbotserver ./cmd/server
+	
 .PHONY: runserver
 runserver:
 	go build -o erikbotserver ./cmd/server && ./erikbotserver serve

@@ -3,6 +3,7 @@ package bot
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -24,6 +25,7 @@ func TwitchSay(cmd Params, msg string) error {
 		"channel": cmd.Channel,
 		"message": msg,
 	}
+	log.Printf("TwitchSay with args %v", args)
 	return ExecuteAction("twitch", "Say", args, cmd)
 }
 

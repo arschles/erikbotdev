@@ -53,6 +53,14 @@ func ListCounters() []string {
 	return counters
 }
 
+func CountersListTimer(counterNames []string) {
+	// this thing needs to go into a goroutine
+
+	// store the last time each counter was changed
+	// start a timer that ticks every 30 mins and iterate the counterNames.
+	// print out the duration since each one was written
+}
+
 func InitDatabase(file string, mode os.FileMode) error {
 	var err error
 	db, err = bbolt.Open(file, mode, &bbolt.Options{Timeout: 1 * time.Second})
