@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/erikstmartin/erikbotdev/bot"
 	"github.com/erikstmartin/erikbotdev/http"
 	"github.com/erikstmartin/erikbotdev/modules/twitch"
+	twitchcl "github.com/gempir/go-twitch-irc/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -32,8 +34,24 @@ var serveCmd = &cobra.Command{
 			port = "8080"
 		}
 
+		twitchMainChannel := os.Getenv("TWITCH_MAIN_CHANNEL")
+		twitchOauthToken := os.Getenv("TWITCH_OAUTH_TOKEN")
+
+		if twitchMainChannel == "" {
+			log.Fatalf("No TWITCH_MAIN_CHANNEL set")
+		}
+		if twitchOauthToken == "" {
+			log.Fatalf("No TWITCH_OAUTH_TOKEN set")
+		}
+
+		twitchClient := twitchcl.NewClient(twitchMainChannel, twitchOauthToken)
+		bot.StartCountersListTimer(
+			twitchClient,
+			[]string{"PEBKAC", "credleak"},
+			30*time.Second,
+		)
 		go func() {
-			if err := twitch.Run(); err != nil {
+			if err := twitch.Run(twitchClient); err != nil {
 				log.Fatalf("Error running twitch chat listener (%s)", err)
 			}
 		}()

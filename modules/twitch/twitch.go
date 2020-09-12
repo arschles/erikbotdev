@@ -10,7 +10,8 @@ import (
 
 	"github.com/erikstmartin/erikbotdev/bot"
 	"github.com/erikstmartin/erikbotdev/http"
-	"github.com/gempir/go-twitch-irc/v2"
+	"github.com/erikstmartin/erikbotdev/pkg/twitchirc"
+	twitch "github.com/gempir/go-twitch-irc/v2"
 	"github.com/nicklaw5/helix"
 	"github.com/xeonx/timeago"
 )
@@ -56,7 +57,6 @@ func (c *Config) isIgnoredUser(username string) bool {
 	return false
 }
 
-var client *twitch.Client
 var config Config
 
 func init() {
@@ -96,7 +96,7 @@ func uptimeAction(a bot.Action, cmd bot.Params) error {
 
 	startedAt := streams[0].StartedAt.Truncate(time.Minute)
 	uptime := timeago.NoMax(timeago.English).Format(startedAt)
-	client.Say(
+	twitchirc.GetClient().Say(
 		channel,
 		fmt.Sprintf(
 			"I started streaming %s",
@@ -116,12 +116,11 @@ func sayAction(a bot.Action, cmd bot.Params) error {
 	if _, ok := a.Args["message"]; !ok {
 		return fmt.Errorf("Argument 'message' is required.")
 	}
-	client.Say(channel, a.Args["message"])
+	twitchirc.GetClient().Say(channel, a.Args["message"])
 	return nil
 }
 
-func Run() error {
-	client = twitch.NewClient(config.MainChannel, config.GetOauthToken())
+func Run(client *twitch.Client) error {
 
 	client.OnConnect(func() {
 		fmt.Println("Connected!")

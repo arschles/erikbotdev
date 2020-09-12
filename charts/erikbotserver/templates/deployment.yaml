@@ -20,6 +20,8 @@ spec:
       labels:
         {{- include "erikbotserver.selectorLabels" . | nindent 8 }}
     spec:
+      strategy:
+        type: RollingUpdate
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -33,6 +35,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           env:
+            - name: TWITCH_MAIN_CHANNEL
+              value: arschles
             - name: ERIKBOTDEV_CONFIG_FILE_NAME
               value: {{ .Values.server.configFileName | quote }}
             - name: PORT

@@ -2,6 +2,17 @@
 
 - where does the bot "5000" naming convention come from - zanuss
 
+Zanuss's Gopher: https://gopherize.me/gopher/8fb692cdafa5c574eca99cbfe22edd29c99a0b70
+According to Zanuss, this is the person they are: https://storage.googleapis.com/gopherizeme.appspot.com/gophers/5311a51ea47440463579cc456dc5987cd7eb506a.png
+
+vtcN_: http://www.knopper.net/knoppix/index-en.html
+
+zanuss exodia yugioh card: https://yugipedia.com/wiki/Exodia
+also a word????
+"exodia of penguins" lol
+
+Zanuss: One day builds always take longer than a day : https://www.tested.com/art/makers/837968-testeds-new-one-day-builds-t-shirt/
+
 **For all things k8s: https://k8syaml.com/**
 
 >h/t rockerBoo

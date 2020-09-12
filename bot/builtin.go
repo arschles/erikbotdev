@@ -7,6 +7,9 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
+
+	twitch "github.com/gempir/go-twitch-irc/v2"
 )
 
 var builtinCommands map[string]CommandFunc = map[string]CommandFunc{
@@ -27,6 +30,34 @@ func TwitchSay(cmd Params, msg string) error {
 	}
 	log.Printf("TwitchSay with args %v", args)
 	return ExecuteAction("twitch", "Say", args, cmd)
+}
+
+func StartCountersListTimer(
+	twitchClient *twitch.Client,
+	counterNames []string,
+	duration time.Duration,
+) {
+	countersChan := make(chan []CounterData)
+	go CountersListTimer(counterNames, countersChan)
+	go func() {
+		for {
+			counters := <-countersChan
+			log.Printf("About to print all the counters after %s", duration)
+			for _, counter := range counters {
+				timeSince := time.Now().Sub(counter.TimeUpdated)
+				counterStr := fmt.Sprintf("time since last %s: %s",
+					counter.Name,
+					timeSince,
+				)
+				log.Println(counterStr)
+				twitchClient.Say(
+					"arschles",
+					counterStr,
+				)
+			}
+		}
+	}()
+
 }
 
 func helpCmd(cmd Params) error {
@@ -111,7 +142,12 @@ func soundListCmd(cmd Params) error {
 }
 
 func listCountersCmd(cmd Params) error {
-	return TwitchSay(cmd, "counters: "+strings.Join(ListCounters(), ", "))
+	countersList := ListCounters()
+	counterStrings := make([]string, len(countersList))
+	for i, counter := range countersList {
+		counterStrings[i] = fmt.Sprintf("%s: %d", counter.Name, counter.Value)
+	}
+	return TwitchSay(cmd, "counters: "+strings.Join(counterStrings, "\n"))
 }
 
 // TODO; Hit Twitch API and ensure user exists
